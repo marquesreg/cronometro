@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="STYLE.CSS">
+    <title>Cronometro - JavaScript</title>
+    
+</head>
+<body>
+    
+    <audio id="sound" src="sound.mp3" style="display: none;"></audio>
+
+<div class="container">
+
+       <h2>Minutos:</h2>
+       <select id="minutos" name="minutos"></select>
+
+       <h2>Segundos:</h2>
+       <select id="minutos" nome="segundos"></select>
+       <br>
+       <br>
+       <button id="começar">Começar</button>
+
+    <div id="display">
+        <h3></h3>
+    </div><!--display-->
+
+</div><!--container-->
+
+<script>
+
+    var display =document.getElementById('display');
+    var minutos =document.getElementById('minutos');
+    var segundos=document.getElementById('segundos');
+    var começar =document.getElementById('começar');
+    
+
+    var cronometroSeg;
+
+    var minutosAtual;
+    var segundoAtual;
+
+    var interval;
+
+    for(var i = 0; i <= 60; i++){
+        
+        minutos.innerHTML+='<option value="'+i+'">'+i+'</option>';
+    }
+
+    for(var i = 1; i <= 60; i++){
+        
+        segundos.innerHTML+='<option value="'+i+'">'+i+'</option>';
+    }
+        começar.addEventListener('Click',function(){
+
+        minutosAtual = minutos.value;
+        segundoAtual = segundos.value;
+
+        display.childNodes[1].innerHTML = minutosAtual + ":"+segundoAtual;
+
+        interval = setInterval(function(){
+
+            segundoAtual--;
+            if(segundoAtual <= 0){
+                if(minutosAtual > 0){
+                    minutosAtual--;
+                    segundoAtual = 59;
+                } else {
+
+                    alert("Acabou");
+                    document.getElementById('sound').play();
+                    clearInterval(interval)
+                }
+            }
+            display.childNodes[1].innerHTML = minutosAtual + ":"+segundoAtual;
+        },1000);
+
+    })
+</script>
+</body>
+</html>
